@@ -10,5 +10,6 @@ import Combine
 
 public protocol NetworkServiceProtocol {
     func request<T: Decodable>(endpoint: Endpoint, _ responseType: T.Type) async -> Result<T, Error>
+    func request(endpoint: Endpoint) async -> Result<Void, Error>
     func request<T: Decodable>(endpoint: Endpoint, _ responseType: T.Type) -> AnyPublisher<T, Error>
 }

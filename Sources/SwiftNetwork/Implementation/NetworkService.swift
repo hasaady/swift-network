@@ -31,6 +31,24 @@ public class NetworkService: NetworkServiceProtocol {
         }
     }
     
+    public func request(endpoint: Endpoint) async -> Result<Void, Error> {
+        guard let urlRequest = createRequest(endpoint: endpoint) else {
+            return .failure(NetworkError.invalidURL)
+        }
+
+        do {
+            let (data, response) = try await URLSession.shared.data(for: urlRequest)
+            
+            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+                return .failure(NetworkError.requestFailed)
+            }
+            
+            return .success(())
+        } catch {
+            return .failure(NetworkError.decodingError)
+        }
+    }
+
     public func request<T: Decodable>(endpoint: Endpoint, _ responseType: T.Type) -> AnyPublisher<T, Error> {
         guard let urlRequest = createRequest(endpoint: endpoint) else {
             precondition(false, "NetworkError invalidURL")
