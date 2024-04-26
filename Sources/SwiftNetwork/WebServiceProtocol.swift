@@ -10,11 +10,11 @@ import Foundation
 public protocol WebServiceProtocol {
     var baseURL: String { get }
     var path: String { get }
-    var method: HTTPMethod { get }
+    var method: Method { get }
     var headers: [String: String] { get }
 }
 
-public enum HTTPMethod {
+public enum Method {
     case get
     case post
     case put
