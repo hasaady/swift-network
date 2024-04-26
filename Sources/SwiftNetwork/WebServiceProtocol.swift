@@ -6,32 +6,17 @@
 //
 
 import Foundation
-import Alamofire
+
+public protocol WebServiceProtocol {
+    var baseURL: String { get }
+    var path: String { get }
+    var headers: [String: String] { get }
+    var method: APIMethod { get }
+}
 
 public enum APIMethod {
     case get
     case post
     case put
     case delete
-}
-
-public protocol WebServiceProtocol {
-    var path: String { get }
-    var headers: [String: String] { get }
-    var method: APIMethod { get }
-}
-
-extension WebServiceProtocol {
-    var AFMethod: HTTPMethod {
-        switch method {
-        case .get:
-            return .get
-        case .post:
-            return .post
-        case .put:
-            return .put
-        case .delete:
-            return .delete
-        }
-    }
 }
