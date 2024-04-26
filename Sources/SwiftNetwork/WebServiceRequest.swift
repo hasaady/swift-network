@@ -10,11 +10,11 @@ import Alamofire
 
 public extension WebServiceProtocol {
     
-    func request<T: Codable, U: Codable>(parameters: U? = nil) async throws -> T {
+    func request<T: Codable, U: Codable>(body: U? = nil) async throws -> T {
         return try await AF.request(
             baseURL + path,
             method: AFMethod,
-            parameters: parameters,
+            parameters: body,
             encoder: JSONParameterEncoder.prettyPrinted,
             headers: HTTPHeaders(headers)
         )
@@ -22,11 +22,11 @@ public extension WebServiceProtocol {
         .value
     }
     
-    func request<U: Codable>(parameters: U? = nil) async throws {
+    func request<U: Codable>(body: U? = nil) async throws {
         let result = await AF.request(
             baseURL + path,
             method: AFMethod,
-            parameters: parameters,
+            parameters: body,
             encoder: JSONParameterEncoder.prettyPrinted,
             headers: HTTPHeaders(headers)
         )
