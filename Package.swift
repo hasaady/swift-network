@@ -13,11 +13,21 @@ let package = Package(
             targets: ["SwiftNetwork"]
         ),
     ],
+    dependencies: [
+        .package(url: "https://github.com/Alamofire/Alamofire.git", from: "5.6.1")
+    ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "SwiftNetwork"
+            name: "SwiftNetwork",
+            dependencies: ["Alamofire"]
+        ),
+        .executableTarget(
+            name: "SwiftNetworkDebug",
+            dependencies: [
+                .target(name: "SwiftNetwork"),
+            ]
         ),
         .testTarget(
             name: "SwiftNetworkTests",
