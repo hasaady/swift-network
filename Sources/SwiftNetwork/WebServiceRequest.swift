@@ -10,7 +10,7 @@ import Alamofire
 
 public extension WebServiceProtocol {
     
-    func request<T: Codable, U: Codable>(body: U? = nil) async throws -> T {
+    func makeRequest<T: Codable, U: Codable>(body: U? = nil) async throws -> T {
         return try await AF.request(
             baseURL + path,
             method: AFMethod,
@@ -22,7 +22,7 @@ public extension WebServiceProtocol {
         .value
     }
     
-    func request<U: Codable>(body: U? = nil) async throws {
+    func makeRequest<U: Codable>(body: U? = nil) async throws {
         let result = await AF.request(
             baseURL + path,
             method: AFMethod,
