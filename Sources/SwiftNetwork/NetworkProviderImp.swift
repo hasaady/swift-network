@@ -19,14 +19,14 @@ enum NetworkError: Error {
     case decodingError(Error)
 }
 
-class NetworkProviderImp: NetworkProvider {
-    let baseURL: String
+public class NetworkProviderImp: NetworkProvider {
+    public let baseURL: String
 
-    init(baseURL: String) {
+    public init(baseURL: String) {
         self.baseURL = baseURL
     }
 
-    func get<T: Decodable>(path: String) async throws -> T {
+    public func get<T: Decodable>(path: String) async throws -> T {
         let urlString = baseURL.appending(path)
         
         guard let url = URL(string: urlString) else {
@@ -50,7 +50,7 @@ class NetworkProviderImp: NetworkProvider {
         }
     }
 
-    func post<T: Decodable, U: Encodable>(path: String, body: U) async throws -> T {
+    public func post<T: Decodable, U: Encodable>(path: String, body: U) async throws -> T {
         
         let urlString = baseURL.appending(path)
         
