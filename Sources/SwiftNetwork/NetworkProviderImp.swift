@@ -16,6 +16,7 @@ public protocol NetworkProvider {
 enum NetworkError: Error {
     case invalidURL
     case invalidResponse
+    case encodingError
     case decodingError(Error)
 }
 
@@ -60,8 +61,8 @@ public class NetworkProviderImp: NetworkProvider {
 
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-
-        request.httpBody = try JSONSerialization.data(withJSONObject: body)
+        
+        request.httpBody = try JSONEncoder().encode(body)
         
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 
